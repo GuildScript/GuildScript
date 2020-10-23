@@ -2,7 +2,7 @@
   "name": "guilded.js",
   "version": "0.0.1",
   "description": "A discord.js like client for guilded.",
-  "main": "index.js",
+  "main": "./src/index",
   "repository": "https://github.com/WilsontheWolf/Guilded.js",
   "author": "WilsontheWolf",
   "license": "MIT",

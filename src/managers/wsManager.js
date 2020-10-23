@@ -5,9 +5,10 @@ module.exports = class wsManager {
     constructor(cookie, client) {
         cookie = cookie.map(v => v.split(' ')[0]).join('');
         this.ws = new WebSocket(url, { headers: { cookie } });
+        
         this.ws.on('open', () => {
             client.emit('connected');
-            setInterval(this.heartbeat, 10000, this.ws);
+            setInterval(this.heartbeat, 10000, this.ws, client);
         });
 
         this.ws.on('message', (msg) => {
@@ -23,9 +24,10 @@ module.exports = class wsManager {
         });
     }
 
-    heartbeat(ws) {
+    heartbeat(ws, client) {
         if (!ws) return;
         if (ws.readyState !== 1) return;
         ws.send('2');
+        client.request({path: 'users/me/ping', method: 'put'});
     }
 };

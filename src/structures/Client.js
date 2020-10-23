@@ -1,8 +1,12 @@
-const ChannelManager = require('./ChannelManager');
-const request = require('../functions/request');
-const wsManager = require('./wsManager');
+const request = require('../request');
+const wsManager = require('../managers/wsManager');
 const EventEmitter = require('events');
-const UserManager = require('./UserManager');
+const UserManager = require('../managers/UserManager');
+const ChannelManager = require('../managers/ChannelManager');
+const TeamManager = require('../managers/TeamManager');
+const Message = require('./Message');
+const Team = require('./Team');
+const ClientUser = require('./ClientUser');
 const cookies = Symbol();
 
 module.exports = class Client extends EventEmitter {
@@ -11,6 +15,9 @@ module.exports = class Client extends EventEmitter {
         this.options = options;
         this.channels = new ChannelManager(this);
         this.users = new UserManager(this); 
+        this.teams = new TeamManager(this); 
+        this.typers = new Set();
+        this.typerClocks = {};
         this[cookies] = [];
 
         this.on('raw', this.raw);
@@ -37,7 +44,12 @@ module.exports = class Client extends EventEmitter {
     raw(msg) {
         if (!Array.isArray(msg)) return;
         const [type, data] = msg;
-        console.log(type, data);
+
+        if(type === 'ChatMessageCreated') {
+            let message = new Message(this, data);
+            this.emit('message', message);
+        }
+
         if (type === 'chatMessageDeleted') {
             let { channelId, message } = data;
             let channel = this.channels.cache.get(channelId);
@@ -46,10 +58,32 @@ module.exports = class Client extends EventEmitter {
             if (!msg) return;
             this.emit('messageDelete', message);
         }
+
+        if(type === 'ChatChannelTyping') {
+            let key = `${data.channelId}-${data.userId}`;
+            if(!this.typers.has(key)){
+                this.emit('typingStart', data);
+                this.typers.add(key);
+            }
+            clearTimeout(this.typerClocks[key]);
+            this.typerClocks[key] = setTimeout(() => {
+                this.emit('typingEnd', data);
+                this.typers.delete(key);
+                delete this.typerClocks[key];
+            }, 1500);
+        }
     }
-    connected() {
-        // Get all the data
-        // Client User
+
+    async connected() {
+        let data = await this.request({ path: 'me', method: 'get' });
+        let me = data.res;
+
+        this.user = new ClientUser(this, me.user);
+        this.users.cache.set(this.id, this.user);
+
+        me.teams.forEach(async team => {
+            this.teams.cache.set(team.id, new Team(this, team));
+        });
 
         // after thats all done fire ready
         this.emit('ready');
