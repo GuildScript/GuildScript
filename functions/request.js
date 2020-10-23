@@ -19,14 +19,15 @@ module.exports = async (options = {}) => {
         method = 'post',
         json = true
     } = options;
-    let res = await fetch(`${baseURL}/${path}`, {
+    let data = {
         method,
-        body,
         headers: {
             'Content-Type': 'application/json',
             Cookie: cookies.join(', ')
-        },
-    });
+        }
+    };
+    if(method === 'post') data.body = body;
+    let res = await fetch(`${baseURL}/${path}`, data);
     cookies = res.headers.raw()['set-cookie'];
     let fin = {
         res: json ? await res.json() : await res.text(),

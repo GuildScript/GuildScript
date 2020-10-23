@@ -26,6 +26,12 @@ module.exports = {
             'always'
         ],
         'no-var': 'error',
-        "no-empty": ["error", { "allowEmptyCatch": true }]
+        'no-empty':
+            [
+                'error',
+                {
+                    'allowEmptyCatch': true
+                }
+            ]
     }
 };
