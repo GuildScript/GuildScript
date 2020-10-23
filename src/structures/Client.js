@@ -7,14 +7,34 @@ const TeamManager = require('../managers/TeamManager');
 const Message = require('./Message');
 const Team = require('./Team');
 const ClientUser = require('./ClientUser');
+const ChannelManager = require('../managers/ChannelManager');
 const cookies = Symbol();
 
+/**
+ * The main class to interact with the api.
+ */
 module.exports = class Client extends EventEmitter {
+    /**
+     * Make a new client for interacting with the api.
+     * @param {Object} [options] - The client options. RN we don't have any.
+     */
     constructor(options) {
         super();
         this.options = options;
+        /** 
+         * The channels the bot can access.
+         * @type {ChannelManager}
+         */
         this.channels = new ChannelManager(this);
+        /** 
+         * The users the bot can access.
+         * @type {UserManager}
+         */
         this.users = new UserManager(this); 
+        /** 
+         * The teams the bot can access.
+         * @type {TeamManager}
+         */
         this.teams = new TeamManager(this); 
         this.typers = new Set();
         this.typerClocks = {};
@@ -24,6 +44,11 @@ module.exports = class Client extends EventEmitter {
         this.on('connected', this.connected);
     }
 
+    /**
+     * Login to a user.
+     * @param {string} email - The email of the user you want to login as.
+     * @param {string} password - The password of the user you want to login as.
+     */
     async login(email, password) {
         const data = JSON.stringify({ email, password });
         let { res, ok, status, cookies: cookie } = await this.request({
@@ -37,10 +62,11 @@ module.exports = class Client extends EventEmitter {
         this.ws = new wsManager(cookie, this);
     }
 
-    getCookies() {
-        return this[cookies];
-    }
-
+    /**
+     * Internal function to process raw events.
+     * @param {*} msg - The data to process.
+     * @private
+     */
     raw(msg) {
         if (!Array.isArray(msg)) return;
         const [type, data] = msg;
@@ -74,6 +100,10 @@ module.exports = class Client extends EventEmitter {
         }
     }
 
+    /**
+     * Internal function to handle first connecting.
+     * @private
+     */
     async connected() {
         let data = await this.request({ path: 'me', method: 'get' });
         let me = data.res;
