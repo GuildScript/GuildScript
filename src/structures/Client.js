@@ -7,7 +7,6 @@ const TeamManager = require('../managers/TeamManager');
 const Message = require('./Message');
 const Team = require('./Team');
 const ClientUser = require('./ClientUser');
-const ChannelManager = require('../managers/ChannelManager');
 const cookies = Symbol();
 
 /**

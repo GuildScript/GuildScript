@@ -12,7 +12,7 @@ module.exports = class Team {
 
     }
 
-        isTyping(user) {
+    isTyping(user) {
         return this.client.typers;
     }
 };
