@@ -1,9 +1,9 @@
 {
-  "name": "guilded.js",
+  "name": "guildscript",
   "version": "0.0.1",
   "description": "A discord.js like client for guilded.",
   "main": "./src/index",
-  "repository": "https://github.com/WilsontheWolf/Guilded.js",
+  "repository": "https://github.com/WilsontheWolf/GuildScript",
   "author": "WilsontheWolf",
   "license": "MIT",
   "dependencies": {
