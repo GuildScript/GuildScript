@@ -80,6 +80,25 @@ module.exports = (dom) => {
             break;
         }
 
+        case 'code-container': {
+            let code = '';
+
+            node.nodes.forEach(line => {
+                code += line.nodes[0].leaves[0].text + '\n'; 
+            });
+
+            code = code.substring(0, code.length - 1);
+
+            message.lines.push({
+                type: 'code',
+                language: node.data.language,
+                code: code
+            });
+
+            message.text += '```' + node.data.language + '\n' + code + '\n```\n';
+            break;
+        }
+
         case 'block-quote-container': {
             break;
         }
