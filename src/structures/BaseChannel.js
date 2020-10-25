@@ -1,4 +1,4 @@
-module.exports = class Team {
+module.exports = class BaseChannel {
     constructor(client, data) {
         this.client = client;
         this.apply(data);
@@ -10,10 +10,6 @@ module.exports = class Team {
 
     async update() {
 
-    }
-
-    isTyping(user) {
-        return this.client.typers;
     }
 };
 

@@ -8,7 +8,7 @@ module.exports = class wsManager {
         
         this.ws.on('open', () => {
             client.emit('connected');
-            setInterval(this.heartbeat, 10000, this.ws, client);
+            this.interval = setInterval(this.heartbeat, 10000, this.ws, client);
         });
 
         this.ws.on('message', (msg) => {
@@ -20,6 +20,7 @@ module.exports = class wsManager {
         });
 
         this.ws.on('close', (data) => {
+            clearInterval(this.interval);
             console.log('disconnected', data);
         });
     }
@@ -29,5 +30,10 @@ module.exports = class wsManager {
         if (ws.readyState !== 1) return;
         ws.send('2');
         client.request({path: 'users/me/ping', method: 'put'});
+    }
+
+    close() {
+        this.ws.close(1000);
+        clearInterval(this.interval);
     }
 };

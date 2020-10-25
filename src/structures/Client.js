@@ -62,6 +62,20 @@ module.exports = class Client extends EventEmitter {
     }
 
     /**
+     * Disconnect and stop requests from the client.
+     */
+    async destroy () {
+        this.ws.close();
+        await this.request({path: 'logout'});
+        this[cookies] = [];
+    }
+
+
+    ////////////////////////////////////////////////////////////
+    //////////////////////INTERNAL METHODS//////////////////////
+    ////////////////////////////////////////////////////////////
+
+    /**
      * Internal function to process raw events.
      * @param {*} msg - The data to process.
      * @private
