@@ -4,8 +4,10 @@
  */
 module.exports = (dom) => {
     dom = dom.document.nodes;
+    console.log(dom);
     let message = {
         lines: [],
+        attachments: [],
         text: ''
     };
 
@@ -96,6 +98,15 @@ module.exports = (dom) => {
             });
 
             message.text += '```' + node.data.language + '\n' + code + '\n```\n';
+            break;
+        }
+
+        case 'image': {
+            message.lines.push({
+                type: 'image',
+                link: node.data.src
+            });
+            message.attachments.push(node.data.src);
             break;
         }
 
