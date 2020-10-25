@@ -26,7 +26,8 @@ module.exports = (dom) => {
                         if (text != '') {
                             line.nodes.push({
                                 type: 'text',
-                                text: text.replace(/\r/g, '')
+                                text: text.replace(/\r/g, ''),
+                                formatting: l.marks.map(m => m.type)
                             });
                             line.text += text;
                         }
