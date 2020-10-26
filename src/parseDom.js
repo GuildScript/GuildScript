@@ -1,6 +1,8 @@
 /**
  * Parses the raw messages sent from guilded into a much more manageable form.
  * @param {Object} dom - The raw dom of the message.
+ * @module
+ * @private
  */
 module.exports = (dom) => {
     dom = dom.document.nodes;
@@ -118,6 +120,17 @@ module.exports = (dom) => {
             break;
         }
 
+        case 'unordered-list': {
+            break;
+        }
+
+        case 'ordered-list': {
+            break;
+        }
+
+        case 'form': {
+            break;
+        }
         }
     });
     message.text = message.text.replace(/\r/g, '').substring(0, message.text.length - 1);

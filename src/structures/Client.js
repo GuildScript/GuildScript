@@ -11,6 +11,16 @@ const cookies = Symbol();
 
 /**
  * The main class to interact with the api.
+ * @module
+ * @example
+ * const guilded = require('guildscript');
+ * const client = new guilded.client();
+ * 
+ * client.login('email', 'password');
+ * 
+ * client.on('ready' () => {
+ *     console.log(`Logged in as ${client.user.name}.`);
+ * });
  */
 module.exports = class Client extends EventEmitter {
     /**

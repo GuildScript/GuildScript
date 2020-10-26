@@ -10,6 +10,8 @@ const baseURL = 'https://api.guilded.gg';
  * @param {object} options.cookies - The cookies to send.
  * @param {boolean} [options.json=true] - If you want to receive a JSON response.
  * @returns {Promise<object>} The response from the server.
+ * @module
+ * @private
  */
 module.exports = async (options = {}) => {
     let {
