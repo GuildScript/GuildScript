@@ -8,10 +8,10 @@ module.exports = class Message {
         this.apply(data);
     }
 
-    apply(data) {
+    async apply(data) {
         const { channelId, teamId, message: { id, content, createdAt }, createdBy: authorId  } = data;
 
-        this.channel = channelId;
+        this.channel = this.client.channels.cache.get(channelId);
         this.team = teamId;
         this.id = id;
         this.content = parseDom(content);

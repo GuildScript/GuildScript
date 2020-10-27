@@ -90,11 +90,12 @@ module.exports = class Client extends EventEmitter {
      * @param {*} msg - The data to process.
      * @private
      */
-    raw(msg) {
+    async raw(msg) {
         if (!Array.isArray(msg)) return;
         const [type, data] = msg;
 
         if(type === 'ChatMessageCreated') {
+            this.channel = await this.channels.fetch(data.teamId, data.channelId);
             let message = new Message(this, data);
             this.emit('message', message);
         }
