@@ -17,6 +17,7 @@ module.exports = class Paragraph extends BaseComponent {
 
                 case 'text': {
                     p.leaves.forEach(l => {
+                        if(l.text == '') return;
                         this.content.push(new Text(l.text, l.marks.map(m => m.type)));
                     });
                     break;
