@@ -26,7 +26,7 @@ module.exports = (dom) => {
             });
 
             code = code.substring(0, code.length - 1);
-                message.add(new CodeBlock(code, node.data.language));
+            message.add(new CodeBlock(code, node.data.language));
             break;
         }
 

@@ -44,7 +44,7 @@ module.exports = class Paragraph extends BaseComponent {
                     }
 
                     case 'link': {
-                            this.content.push(new Link(p.data.href, p.nodes[0].leaves[0].text));
+                        this.content.push(new Link(p.data.href, p.nodes[0].leaves[0].text));
                         break;
                     }
 

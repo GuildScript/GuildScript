@@ -1,4 +1,4 @@
-const BaseComponent = require("./BaseComponent");
+const BaseComponent = require('./BaseComponent');
 
 module.exports = class CodeBlock extends BaseComponent {
     constructor(code, lang = 'unformatted') {
@@ -13,7 +13,7 @@ module.exports = class CodeBlock extends BaseComponent {
      * @returns {string}
      */
     toString() {
-        return `${'```'}${this.language}\n${this.content}\n${'```'}`
+        return `${'```'}${this.language}\n${this.content}\n${'```'}`;
     }
 
     /**
@@ -40,7 +40,7 @@ module.exports = class CodeBlock extends BaseComponent {
                             marks: []
                         }]
                     }]
-                }
+                };
             })
         };
     }
