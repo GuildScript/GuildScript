@@ -9,13 +9,17 @@ module.exports = class UserMention extends ParagraphComponent {
         this.user = null;
     }
 
+    /**
+     * Returns as a string.
+     * @returns {string}
+     */
     toString() {
         return `@${this.name}`;
     }
 
     /**
      * Convert to a  JSON string like Guilded likes.
-     * Note: I still don't understand how these work so it might not work.
+     * @returns {object}
      */
     toJSON() {
         return {

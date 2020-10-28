@@ -1,6 +1,7 @@
 const BaseComponent = require('./BaseComponent');
 const ChannelMention = require('./ChannelMention');
 const EmojiText = require('./EmojiText');
+const Link = require('./Link');
 const ParagraphComponent = require('./ParagraphComponent');
 const Text = require('./Text');
 const UserMention = require('./UserMention');
@@ -39,7 +40,11 @@ module.exports = class Paragraph extends BaseComponent {
 
                     case 'channel': {
                         this.content.push(new ChannelMention(p));
+                        break;
+                    }
 
+                    case 'link': {
+                            this.content.push(new Link(p.data.href, p.nodes[0].leaves[0].text));
                         break;
                     }
 
@@ -52,13 +57,23 @@ module.exports = class Paragraph extends BaseComponent {
         else {
             if(typeof data === 'string') this.content.push(new Text(data));
             else if(Array.isArray(data)) this.content = data.filter(v => v instanceof ParagraphComponent); 
+            else if(data instanceof ParagraphComponent) this.content.push(data);
         }
     }
 
+    /**
+     * Converts the message into a string-like format.
+     * @returns {string}
+     */
     toString() {
         return this.content.map(c => c.toString()).join('');
     }
 
+    /**
+     * Add a component to the paragraph.
+     * @param {ParagraphComponent|string} component - The component to add.
+     * @returns {this}
+     */
     add(data) {
         if (!(data instanceof ParagraphComponent) && typeof data !== 'string') throw new Error('Please provide a valid component.');
         if (data instanceof ParagraphComponent) {
@@ -71,9 +86,9 @@ module.exports = class Paragraph extends BaseComponent {
     }
 
     /**
- * Convert to a  JSON string like Guilded likes.
- * Note: I still don't understand how these work so it might not work.
- */
+     * Convert to a  JSON string like Guilded likes.
+     * @returns {object}
+     */
     toJSON() {
         return {
             object: 'block',

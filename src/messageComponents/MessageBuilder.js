@@ -5,9 +5,13 @@ const ParagraphComponent = require('./ParagraphComponent');
 module.exports = class MessageBuilder {
     /**
      * Used to build messages.
-     * @param  {...baseComponent} components - The components to initialize with.
+     * @param  {...BaseComponent|ParagraphComponent|string} components - The components to initialize with.
      */
     constructor(...components) {
+        /**
+         * The contents of the message.
+         * @type {(BaseComponent|ParagraphComponent|string)[]}
+         */
         this.content = [];
         this.add(...components);
     }
@@ -33,7 +37,7 @@ module.exports = class MessageBuilder {
 
     /**
      * Convert to a  JSON string like Guilded likes.
-     * Note: I still don't understand how these work so it might not work.
+     * @returns {object}
      */
     toJSON() {
         return {
@@ -46,6 +50,10 @@ module.exports = class MessageBuilder {
         };
     }
 
+    /**
+     * Converts the message into a string-like format.
+     * @returns {string}
+     */
     toString() {
         return this.content.map(c => c.toString()).filter(v => v).join('\n');
     }

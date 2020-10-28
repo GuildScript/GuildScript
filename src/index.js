@@ -5,5 +5,6 @@ module.exports = {
     EmojiText: require('./messageComponents/EmojiText'),
     ChannelMention: require('./messageComponents/ChannelMention'),
     Text: require('./messageComponents/Text'),
-    UserMention: require('./messageComponents/UserMention')
+    UserMention: require('./messageComponents/UserMention'),
+    CodeBlock: require('./messageComponents/CodeBlock')
 };

@@ -32,14 +32,14 @@ module.exports = class TextChannel extends BaseChannel {
         if (!(data instanceof MessageBuilder)) throw new Error('Please provide a valid component.');
 
         const id = uuid();
-        return this.client.request({
+        let res = await this.client.request({
             path: `channels/${this.id}/messages`,
             data: JSON.stringify({
                 messageId: id,
                 content: data.toJSON()
             })
         });
-        
+        if (!res.ok) throw new Error(`${res.status} error sending message ${id}!`);
     }
 };
 

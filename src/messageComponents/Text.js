@@ -9,13 +9,17 @@ module.exports = class Text extends ParagraphComponent {
         this.formatting = formatting;
     }
 
+    /**
+     * Convert to a string.
+     * @returns {string}
+     */
     toString() {
         return this.text;
     }
 
     /**
      * Convert to a  JSON string like Guilded likes.
-     * Note: I still don't understand how these work so it might not work.
+     * @returns {object}
      */
     toJSON() {
         return {

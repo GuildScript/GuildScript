@@ -1,12 +1,11 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
-module.exports = class ChannelMention extends ParagraphComponent {
-    constructor(raw) {
+module.exports = class Link extends ParagraphComponent {
+    constructor(url, content) {
         super();
-        this.type = 'channelMention';
-        this.id = raw.data.channel.id;
-        this.name = raw.data.channel.name;
-        this.channel = null;
+        this.type = 'link';
+        this.url = url;
+        this.content = content || url;
     }
 
     /**
@@ -14,7 +13,7 @@ module.exports = class ChannelMention extends ParagraphComponent {
      * @returns {string}
      */
     toString() {
-        return `#${this.name}`;
+        return this.content;
     }
 
     /**
@@ -24,18 +23,15 @@ module.exports = class ChannelMention extends ParagraphComponent {
     toJSON() {
         return {
             object: 'inline',
-            type: 'channel',
+            type: 'link',
             data: {
-                channel: {
-                    name: this.name,
-                    id: this.id,
-                }
+                href: this.url
             },
             nodes: [{
                 object: 'text',
                 leaves: [{
                     object: 'leaf',
-                    text: `#${this.name}`,
+                    text: this.content,
                     marks: []
                 }]
             }]
