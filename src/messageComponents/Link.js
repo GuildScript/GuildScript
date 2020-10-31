@@ -1,5 +1,8 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
+/**
+ * @module Link
+ */
 module.exports = class Link extends ParagraphComponent {
     constructor(url, content) {
         super();

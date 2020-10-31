@@ -1,6 +1,10 @@
 const BaseManager = require('./BaseManager');
 const Team = require('../structures/Team');
 
+/**
+ * Manages Teams.
+ * @module TeamManager
+ */
 module.exports = class TeamManager extends BaseManager {
     constructor(client) {
         super(client);

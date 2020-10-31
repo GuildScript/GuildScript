@@ -4,6 +4,9 @@ const MessageBuilder = require('../messageComponents/MessageBuilder');
 const ParagraphComponent = require('../messageComponents/ParagraphComponent');
 const BaseChannel = require('./BaseChannel');
 
+/**
+ * @module TextChannel
+ */
 module.exports = class TextChannel extends BaseChannel {
     constructor(client, data) {
         super(client, data);

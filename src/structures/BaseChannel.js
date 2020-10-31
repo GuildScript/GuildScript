@@ -1,3 +1,7 @@
+/**
+ * @module BaseChannel
+ * @private
+ */
 module.exports = class BaseChannel {
     constructor(client, data) {
         this.client = client;

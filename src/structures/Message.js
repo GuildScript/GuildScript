@@ -2,6 +2,9 @@
 // const Channel = require('./Channel');
 const parseDom = require('../parseDom');
 
+/**
+ * @module Message
+ */
 module.exports = class Message {
     constructor(client, data) {
         this.client = client;

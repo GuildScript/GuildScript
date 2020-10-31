@@ -6,6 +6,9 @@ const ParagraphComponent = require('./ParagraphComponent');
 const Text = require('./Text');
 const UserMention = require('./UserMention');
 
+/**
+ * @module Paragraph
+ */
 module.exports = class Paragraph extends BaseComponent {
     constructor(data, options = {}) {
         super();

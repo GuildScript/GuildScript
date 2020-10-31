@@ -1,6 +1,10 @@
 const BaseManager = require('./BaseManager');
 const User = require('../structures/User');
 
+/**
+ * Manages users.
+ * @module UserManager
+ */
 module.exports = class UserManager extends BaseManager {
     constructor(client) {
         super(client);

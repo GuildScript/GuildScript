@@ -1,6 +1,10 @@
 const WebSocket = require('ws');
 const url = 'wss://api.guilded.gg/socket.io/?jwt=undefined&EIO=3&transport=websocket';
 
+/**
+ * Manages ws events.
+ * @module wsManager
+ */
 module.exports = class wsManager {
     constructor(cookie, client) {
         cookie = cookie.map(v => v.split(' ')[0]).join('');

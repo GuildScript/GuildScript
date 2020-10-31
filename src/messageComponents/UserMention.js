@@ -1,5 +1,8 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
+/**
+ * @module UserMention
+ */
 module.exports = class UserMention extends ParagraphComponent {
     constructor(raw) {
         super();

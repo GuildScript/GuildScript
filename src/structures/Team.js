@@ -1,6 +1,9 @@
 const Role = require('./Role');
 const User = require('./User');
 
+/**
+ * @module Team
+ */
 module.exports = class Team {
     constructor(client, data) {
         this.client = client;

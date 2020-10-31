@@ -11,7 +11,7 @@ const cookies = Symbol();
 
 /**
  * The main class to interact with the api.
- * @module
+ * @module Client
  * @example
  * const guilded = require('guildscript');
  * const client = new guilded.client();

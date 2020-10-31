@@ -2,6 +2,10 @@ const BaseChannel = require('../structures/BaseChannel');
 const TextChannel = require('../structures/TextChannel');
 const BaseManager = require('./BaseManager');
 
+/**
+ * Manages channels.
+ * @module ChannelManager
+ */
 module.exports = class ChannelManager extends BaseManager {
     async fetch(guildID, channelID, cache = true, force = false) {
         if (!guildID) throw new Error('Must supply guid id.');

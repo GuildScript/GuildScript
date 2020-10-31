@@ -1,5 +1,8 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
+/**
+ * @module ChannelMention
+ */
 module.exports = class ChannelMention extends ParagraphComponent {
     constructor(raw) {
         super();

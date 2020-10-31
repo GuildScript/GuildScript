@@ -2,6 +2,9 @@ const BaseComponent = require('./BaseComponent');
 const Paragraph = require('./Paragraph');
 const ParagraphComponent = require('./ParagraphComponent');
 
+/**
+ * @module MessageBuilder
+ */
 module.exports = class MessageBuilder {
     /**
      * Used to build messages.
@@ -10,7 +13,7 @@ module.exports = class MessageBuilder {
     constructor(...components) {
         /**
          * The contents of the message.
-         * @type {(BaseComponent|ParagraphComponent|string)[]}
+         * @type {Array.<(BaseComponent|ParagraphComponent|string)>}
          */
         this.content = [];
         this.add(...components);

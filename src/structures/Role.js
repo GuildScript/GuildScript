@@ -1,3 +1,6 @@
+/**
+ * @module Role
+ */
 module.exports = class Role {
     constructor(client, data) {
         this.client = client;

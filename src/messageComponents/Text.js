@@ -1,5 +1,8 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
+/**
+ * @module Text
+ */
 module.exports = class Text extends ParagraphComponent {
     constructor(text, formatting = []) {
         super();

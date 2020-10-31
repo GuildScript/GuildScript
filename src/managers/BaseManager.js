@@ -2,7 +2,7 @@ const Collection = require('@discordjs/collection');
 
 /**
  * The base of managers. 
- * @module
+ * @module BaseManager
  * @private
  */
 module.exports = class BaseManager {

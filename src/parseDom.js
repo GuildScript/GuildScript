@@ -5,7 +5,7 @@ const Paragraph = require('./messageComponents/Paragraph');
 /**
  * Parses the raw messages sent from guilded into a much more manageable form.
  * @param {Object} dom - The raw dom of the message.
- * @module
+ * @module parseDom
  * @private
  */
 module.exports = (dom) => {
