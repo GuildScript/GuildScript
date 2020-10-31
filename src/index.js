@@ -6,5 +6,7 @@ module.exports = {
     ChannelMention: require('./messageComponents/ChannelMention'),
     Text: require('./messageComponents/Text'),
     UserMention: require('./messageComponents/UserMention'),
-    CodeBlock: require('./messageComponents/CodeBlock')
+    CodeBlock: require('./messageComponents/CodeBlock'),
+    GuildedImage: require('./messageComponents/GuildedImage'),
+    GuildedVideo: require('./messageComponents/GuildedVideo')
 };
