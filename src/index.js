@@ -8,5 +8,6 @@ module.exports = {
     UserMention: require('./messageComponents/UserMention'),
     CodeBlock: require('./messageComponents/CodeBlock'),
     GuildedImage: require('./messageComponents/GuildedImage'),
-    GuildedVideo: require('./messageComponents/GuildedVideo')
+    GuildedVideo: require('./messageComponents/GuildedVideo'),
+    Embed: require('./messageComponents/Embed')
 };

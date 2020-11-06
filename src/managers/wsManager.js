@@ -33,7 +33,7 @@ module.exports = class wsManager {
         if (!ws) return;
         if (ws.readyState !== 1) return;
         ws.send('2');
-        client.request({path: 'users/me/ping', method: 'put'});
+        client.request({path: 'users/me/ping', method: 'put'}).catch(()=>{});
     }
 
     close() {
