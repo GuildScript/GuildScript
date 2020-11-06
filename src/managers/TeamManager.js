@@ -23,13 +23,13 @@ module.exports = class TeamManager extends BaseManager {
     }
 
     async fetch(id, cache = true, force = false) {
-        if(!force && this.cache.has(id)) {
-            return this.cache.get(id);
+        if(!force && this.has(id)) {
+            return this.get(id);
         }
         let data = await this.client.request({path: `teams/${id}`, method: 'get'});
         if (!data.ok) throw new Error(`${data.status} error fetching team data for ${id}!`);
         let team = new Team(this.client, data.res.team); 
-        if(cache) this.cache.set(id, team);
+        if(cache) this.set(id, team);
         return team;
     }
 };

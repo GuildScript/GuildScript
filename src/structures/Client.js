@@ -102,9 +102,9 @@ module.exports = class Client extends EventEmitter {
 
         if (type === 'chatMessageDeleted') {
             let { channelId, message } = data;
-            let channel = this.channels.cache.get(channelId);
+            let channel = this.channels.get(channelId);
             if (!channel) return;
-            let msg = this.messages.cache.get(message.id);
+            let msg = this.messages.get(message.id);
             if (!msg) return;
             this.emit('messageDelete', message);
         }
@@ -133,10 +133,10 @@ module.exports = class Client extends EventEmitter {
         let me = data.res;
 
         this.user = new ClientUser(this, me.user);
-        this.users.cache.set(this.id, this.user);
+        this.users.set(this.id, this.user);
 
         me.teams.forEach(async team => {
-            this.teams.cache.set(team.id, new Team(this, team));
+            this.teams.set(team.id, new Team(this, team));
         });
 
         // after thats all done fire ready

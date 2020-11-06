@@ -5,9 +5,9 @@ const Collection = require('@discordjs/collection');
  * @module BaseManager
  * @private
  */
-module.exports = class BaseManager {
+module.exports = class BaseManager extends Collection {
     constructor(client) {
+        super();
         this.client = client;
-        this.cache = new Collection();
     }
 };

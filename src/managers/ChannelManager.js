@@ -9,18 +9,18 @@ const BaseManager = require('./BaseManager');
 module.exports = class ChannelManager extends BaseManager {
     async fetch(guildID, channelID, cache = true, force = false) {
         if (!guildID) throw new Error('Must supply guid id.');
-        if (!force && this.cache.has(channelID)) {
-            return this.cache.get(channelID);
+        if (!force && this.has(channelID)) {
+            return this.get(channelID);
         }
         let data = await this.client.request({ path: `teams/${guildID}/channels`, method: 'get' });
         if (!data.ok) throw new Error(`${data.status} error fetching team data for ${channelID}!`);
         const { channels, categories } = data.res;
         if (cache) {
             channels.forEach(c => {
-                if (c.contentType === 'chat') this.cache.set(c.channelId, new TextChannel(this.client, c));
-                else this.cache.set(c.channelId, new BaseChannel(this.client, c));
+                if (c.contentType === 'chat') this.set(c.channelId, new TextChannel(this.client, c));
+                else this.set(c.channelId, new BaseChannel(this.client, c));
             });
-            return this.cache.get(channelID);
+            return this.get(channelID);
         }
         else {
             let res;
