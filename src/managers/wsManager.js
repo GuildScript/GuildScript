@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-const url = 'wss://api.guilded.gg';//'wss://api.guilded.gg/socket.io/?jwt=undefined&EIO=3&transport=websocket';
+const url = 'wss://api.guilded.gg/socket.io/?jwt=undefined&EIO=3&transport=websocket';
 const maxTries = 5;
 /**
  * Manages ws events.
