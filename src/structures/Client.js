@@ -14,7 +14,7 @@ const cookies = Symbol();
  * @module Client
  * @example
  * const guilded = require('guildscript');
- * const client = new guilded.client();
+ * const client = new guilded.Client();
  * 
  * client.login('email', 'password');
  * 
@@ -48,8 +48,10 @@ module.exports = class Client extends EventEmitter {
         this.typers = new Set();
         this.typerClocks = {};
         this[cookies] = [];
+        this.ready = false;
 
         this.on('raw', this.raw);
+        this.on('wsFail', this.wsFail);
         this.on('connected', this.connected);
     }
 
@@ -67,7 +69,6 @@ module.exports = class Client extends EventEmitter {
         this[cookies] = cookie;
         if (!ok) throw new Error(`${status} error logging in!`);
         this.id = res.user.id;
-        //todo data.
         this.ws = new wsManager(cookie, this);
     }
 
@@ -76,6 +77,7 @@ module.exports = class Client extends EventEmitter {
      */
     async destroy () {
         this.ws.close();
+        this.ready = false;
         await this.request({path: 'logout'});
         this[cookies] = [];
     }
@@ -129,6 +131,8 @@ module.exports = class Client extends EventEmitter {
      * @private
      */
     async connected() {
+        // If were ready its a reconnect.
+        if(this.ready) return;
         let data = await this.request({ path: 'me', method: 'get' });
         let me = data.res;
 
@@ -140,7 +144,16 @@ module.exports = class Client extends EventEmitter {
         });
 
         // after thats all done fire ready
+        this.ready = true;
         this.emit('ready');
+    }
+
+    /**
+     * Internal function to handle websocket fails.
+     * @private
+     */
+    wsFail () {
+        this.destroy();
     }
 
     /**
