@@ -29,11 +29,10 @@ module.exports = class TextChannel extends BaseChannel {
         this.updatedAt = new Date(updatedAt);
         this.updatedAtTimestamp = this.updatedAt.getTime();
     }
-    async send(data) {
+    async send(data, options = {}) {
         if (data instanceof BaseComponent || data instanceof ParagraphComponent || typeof data === 'string')
             data = new MessageBuilder(data);
         if (!(data instanceof MessageBuilder)) throw new Error('Please provide a valid component.');
-
         const id = uuid();
         let res = await this.client.request({
             path: `channels/${this.id}/messages`,
@@ -42,7 +41,8 @@ module.exports = class TextChannel extends BaseChannel {
                 content: data.toJSON()
             })
         });
-        if (!res.ok) throw new Error(`${res.status} error sending message ${id}!`);
+        if (!res.ok) throw new Error(`${res.status} error sending message ${id}!
+${JSON.stringify(res.res)}`);
     }
 };
 

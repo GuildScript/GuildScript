@@ -1,23 +1,20 @@
-const ParagraphComponent = require('./ParagraphComponent');
+const BaseComponent = require('./BaseComponent');
 
 /**
- * @module Link
+ * @module Markdown
  */
-module.exports = class Link extends ParagraphComponent {
-    constructor(url, content) {
+module.exports = class Markdown extends BaseComponent {
+    constructor(content) {
         super();
-        this.type = 'link';
-        this.url = url;
-        this.content = content || url;
+        this.content = content;
+        this.type = 'markdown-plain-text';
     }
 
     /**
      * Converts the message into a string-like format.
      * @returns {string}
      */
-    toString(options) {
-        if (options.text)
-            return `[${this.content}](${this.url})`;
+    toString() {
         return this.content;
     }
 
@@ -27,11 +24,9 @@ module.exports = class Link extends ParagraphComponent {
      */
     toJSON() {
         return {
-            object: 'inline',
-            type: 'link',
-            data: {
-                href: this.url
-            },
+            object: 'block',
+            type: 'markdown-plain-text',
+            data: {},
             nodes: [{
                 object: 'text',
                 leaves: [{

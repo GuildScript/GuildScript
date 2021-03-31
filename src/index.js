@@ -9,5 +9,6 @@ module.exports = {
     CodeBlock: require('./messageComponents/CodeBlock'),
     GuildedImage: require('./messageComponents/GuildedImage'),
     GuildedVideo: require('./messageComponents/GuildedVideo'),
-    Embed: require('./messageComponents/Embed')
+    Embed: require('./messageComponents/Embed'),
+    Markdown: require('./messageComponents/Markdown')
 };

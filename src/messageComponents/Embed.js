@@ -64,6 +64,18 @@ module.exports = class Embed extends BaseComponent {
     }
 
     /**
+     * Set the timestamp of the embed.
+     * @param {string} time - The new timestamp.
+     * @returns {this} The new embed.
+     */
+    setTimestamp(time = Date.now()) {
+        time = new Date(time);
+        if (isNaN(time)) throw new Error('The time must be a valid date.');
+        this.timestamp = time.toISOString();
+        return this;
+    }
+
+    /**
      * Set the thumbnail of the embed.
      * @param {string} url - The new thumbnail url.
      * @returns {this} The new embed.

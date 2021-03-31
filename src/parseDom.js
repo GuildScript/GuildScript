@@ -4,6 +4,7 @@ const Paragraph = require('./messageComponents/Paragraph');
 const GuildedImage = require('./messageComponents/GuildedImage');
 const GuildedVideo = require('./messageComponents/GuildedVideo');
 const Embed = require('./messageComponents/Embed');
+const Markdown = require('./messageComponents/Markdown');
 
 /**
  * Parses the raw messages sent from guilded into a much more manageable form.
@@ -53,6 +54,7 @@ module.exports = (dom) => {
         }
 
         case 'markdown-plain-text': {
+            message.add(new Markdown(node.nodes[0].leaves[0].text));
             break;
         }
 

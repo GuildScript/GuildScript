@@ -1,4 +1,5 @@
 const BaseComponent = require('./BaseComponent');
+const Markdown = require('./Markdown');
 const Paragraph = require('./Paragraph');
 const ParagraphComponent = require('./ParagraphComponent');
 
@@ -29,11 +30,13 @@ module.exports = class MessageBuilder {
         inputs.forEach(data => {
             if (data instanceof BaseComponent) {
                 this.content.push(data);
-            } else if (data instanceof ParagraphComponent || typeof data === 'string') {
+            } else if (data instanceof ParagraphComponent) {
                 let l = this.content[this.content.length - 1];
                 if (l instanceof Paragraph) l.add(data);
                 else this.content.push(new Paragraph(data));
-            } else throw new Error('Please provide a valid component.');
+            } else if (typeof data === 'string')
+                this.content.push(new Markdown(data));
+            else throw new Error('Please provide a valid component.');
         });
         return this;
     }
@@ -57,7 +60,7 @@ module.exports = class MessageBuilder {
      * Converts the message into a string-like format.
      * @returns {string}
      */
-    toString() {
-        return this.content.map(c => c.toString()).filter(v => v).join('\n');
+    toString(options) {
+        return this.content.map(c => c.toString(options)).filter(v => v).join('\n');
     }
 };
