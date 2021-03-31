@@ -1,4 +1,4 @@
-const BaseChannel = require('../structures/BaseChannel');
+const TextBasedChannel = require('../structures/TextBasedChannel');
 const TextChannel = require('../structures/TextChannel');
 const BaseManager = require('./BaseManager');
 
@@ -18,7 +18,7 @@ module.exports = class ChannelManager extends BaseManager {
         if (cache) {
             channels.forEach(c => {
                 if (c.contentType === 'chat') this.set(c.channelId, new TextChannel(this.client, c));
-                else this.set(c.channelId, new BaseChannel(this.client, c));
+                else this.set(c.channelId, new TextBasedChannel(this.client, c));
             });
             return this.get(channelID);
         }
@@ -26,7 +26,7 @@ module.exports = class ChannelManager extends BaseManager {
             let res;
             let chn = channels.find(c => c.id === channelID);
             if (chn.contentType === 'chat') res = new TextChannel(this.client, chn);
-            else res = new BaseChannel(this.client, chn);
+            else res = new TextBasedChannel(this.client, chn);
             if(res) return res;
         }
         throw new Error('Channel not found.');

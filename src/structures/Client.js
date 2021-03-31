@@ -99,6 +99,7 @@ module.exports = class Client extends EventEmitter {
         if(type === 'ChatMessageCreated') {
             this.channel = await this.channels.fetch(data.teamId, data.channelId);
             let message = new Message(this, data);
+            await message.ready;
             this.emit('message', message);
         }
 

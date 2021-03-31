@@ -16,8 +16,26 @@ module.exports = class Text extends ParagraphComponent {
      * Convert to a string.
      * @returns {string}
      */
-    toString() {
-        return this.text;
+    toString(options = {}) {
+        if (options.text || !this.formatting || !this.formatting[0])
+            return this.text;
+        else {
+            const list = {
+                bold: '**',
+                spoiler: '||',
+                strikethrough: '~~',
+                italic: '*',
+                underline: '__',
+                'inline-code-v2': '`'
+            };
+            let res = this.text;
+            this.formatting.forEach(f => {
+                let c = list[f];
+                if(!c) return;
+                res = c + res + c;
+            });
+            return res;
+        }
     }
 
     /**
