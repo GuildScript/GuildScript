@@ -7,6 +7,7 @@ const TeamManager = require('../managers/TeamManager');
 const Message = require('./Message');
 const Team = require('./Team');
 const ClientUser = require('./ClientUser');
+const externalPromise = require('../externalPromise');
 const cookies = Symbol();
 
 /**
@@ -49,6 +50,7 @@ module.exports = class Client extends EventEmitter {
         this.typerClocks = {};
         this[cookies] = [];
         this.ready = false;
+        this.connectedPromise = externalPromise();
 
         this.on('raw', this.raw);
         this.on('wsFail', this.wsFail);
@@ -78,6 +80,7 @@ module.exports = class Client extends EventEmitter {
     async destroy () {
         this.ws.close();
         this.ready = false;
+        this.connectedPromise.promise = Promise.reject(new Error('The client was destroyed'));
         await this.request({path: 'logout'});
         this[cookies] = [];
     }
@@ -94,6 +97,7 @@ module.exports = class Client extends EventEmitter {
      */
     async raw(msg) {
         if (!Array.isArray(msg)) return;
+        await this.connectedPromise;
         const [type, data] = msg;
 
         if(type === 'ChatMessageCreated') {
@@ -146,6 +150,7 @@ module.exports = class Client extends EventEmitter {
 
         // after thats all done fire ready
         this.ready = true;
+        this.connectedPromise.resolve();
         this.emit('ready');
     }
 
@@ -176,5 +181,9 @@ module.exports = class Client extends EventEmitter {
     request(options = {}) {
         options.cookies = this[cookies];
         return request(options);
+    }
+
+    get awaitConnection () {
+        return this.connectedPromise.promise;
     }
 };
