@@ -1,9 +1,8 @@
 const BaseComponent = require('./BaseComponent');
 
 /**
- * @module Markdown
- */
-module.exports = class Markdown extends BaseComponent {
+ * */
+const Markdown = class Markdown extends BaseComponent {
     constructor(content) {
         super();
         this.content = content;
@@ -38,3 +37,5 @@ module.exports = class Markdown extends BaseComponent {
         };
     }
 };
+
+module.exports = Markdown;

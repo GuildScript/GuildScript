@@ -1,9 +1,8 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
 /**
- * @module ChannelMention
  */
-module.exports = class ChannelMention extends ParagraphComponent {
+const ChannelMention = class ChannelMention extends ParagraphComponent {
     constructor(raw) {
         super();
         this.type = 'channelMention';
@@ -45,3 +44,5 @@ module.exports = class ChannelMention extends ParagraphComponent {
         };
     }
 };
+
+module.exports = ChannelMention;

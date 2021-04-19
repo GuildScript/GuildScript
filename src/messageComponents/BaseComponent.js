@@ -1,10 +1,11 @@
 
 /**
  * Represents a component in a message.
- * @module BaseComponent
  * @private
  */
-module.exports = class BaseComponent {
+const BaseComponent = class BaseComponent {
     constructor() {
     }
 };
+
+module.exports = BaseComponent;

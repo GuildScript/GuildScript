@@ -1,9 +1,8 @@
 // const Channel = require('./');
 
 /**
- * @module TypingEvent
- */
-module.exports = class TypingEvent {
+ * */
+const TypingEvent = class TypingEvent {
     constructor(client, data) {
         this.client = client;
         this.apply(data);
@@ -21,3 +20,6 @@ module.exports = class TypingEvent {
     }
 };
 
+
+
+module.exports = TypingEvent;

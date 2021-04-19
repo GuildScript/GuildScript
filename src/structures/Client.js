@@ -8,12 +8,12 @@ const Message = require('./Message');
 const Team = require('./Team');
 const ClientUser = require('./ClientUser');
 const externalPromise = require('../externalPromise');
+const ThreadChannel = require('./ThreadChannel');
 const cookies = Symbol();
 
 /**
  * The main class to interact with the api.
- * @module Client
- * @example
+ * * @example
  * const guilded = require('guildscript');
  * const client = new guilded.Client();
  * 
@@ -23,7 +23,7 @@ const cookies = Symbol();
  *     console.log(`Logged in as ${client.user.name}.`);
  * });
  */
-module.exports = class Client extends EventEmitter {
+const Client = class Client extends EventEmitter {
     /**
      * Make a new client for interacting with the api.
      * @param {Object} [options] - The client options. RN we don't have any.
@@ -40,12 +40,12 @@ module.exports = class Client extends EventEmitter {
          * The users the bot can access.
          * @type {UserManager}
          */
-        this.users = new UserManager(this); 
+        this.users = new UserManager(this);
         /** 
          * The teams the bot can access.
          * @type {TeamManager}
          */
-        this.teams = new TeamManager(this); 
+        this.teams = new TeamManager(this);
         this.typers = new Set();
         this.typerClocks = {};
         this[cookies] = [];
@@ -77,11 +77,11 @@ module.exports = class Client extends EventEmitter {
     /**
      * Disconnect and stop requests from the client.
      */
-    async destroy () {
+    async destroy() {
         this.ws.close();
         this.ready = false;
         this.connectedPromise.promise = Promise.reject(new Error('The client was destroyed'));
-        await this.request({path: 'logout'});
+        await this.request({ path: 'logout' });
         this[cookies] = [];
     }
 
@@ -100,34 +100,44 @@ module.exports = class Client extends EventEmitter {
         await this.connectedPromise;
         const [type, data] = msg;
 
-        if(type === 'ChatMessageCreated') {
-            this.channel = await this.channels.fetch(data.teamId, data.channelId);
-            let message = new Message(this, data);
-            await message.ready;
-            this.emit('message', message);
-        }
-
-        if (type === 'chatMessageDeleted') {
-            let { channelId, message } = data;
-            let channel = this.channels.get(channelId);
-            if (!channel) return;
-            let msg = this.messages.get(message.id);
-            if (!msg) return;
-            this.emit('messageDelete', message);
-        }
-
-        if(type === 'ChatChannelTyping') {
-            let key = `${data.channelId}-${data.userId}`;
-            if(!this.typers.has(key)){
-                this.emit('typingStart', data);
-                this.typers.add(key);
+        try {
+            if (type === 'ChatMessageCreated') {
+                let message = new Message(this, data);
+                await message.ready;
+                this.emit('message', message);
             }
-            clearTimeout(this.typerClocks[key]);
-            this.typerClocks[key] = setTimeout(() => {
-                this.emit('typingEnd', data);
-                this.typers.delete(key);
-                delete this.typerClocks[key];
-            }, 1500);
+
+            if (type === 'chatMessageDeleted') {
+                let { channelId, message } = data;
+                let channel = this.channels.get(channelId);
+                if (!channel) return;
+                let msg = this.messages.get(message.id);
+                if (!msg) return;
+                this.emit('messageDelete', message);
+            }
+
+            if (type === 'ChatChannelTyping') {
+                let key = `${data.channelId}-${data.userId}`;
+                if (!this.typers.has(key)) {
+                    this.emit('typingStart', data);
+                    this.typers.add(key);
+                }
+                clearTimeout(this.typerClocks[key]);
+                this.typerClocks[key] = setTimeout(() => {
+                    this.emit('typingEnd', data);
+                    this.typers.delete(key);
+                    delete this.typerClocks[key];
+                }, 1500);
+            }
+
+            if (type === 'TemporalChannelCreated') {
+                const channel = new ThreadChannel(this, data);
+                this.channels.set(data.id, channel);
+                this.emit('theadCreated', channel);
+            }
+        } catch (e) {
+            console.error(`Error processing raw event "${type}"!`);
+            console.error(e);
         }
     }
 
@@ -137,7 +147,7 @@ module.exports = class Client extends EventEmitter {
      */
     async connected() {
         // If were ready its a reconnect.
-        if(this.ready) return;
+        if (this.ready) return;
         let data = await this.request({ path: 'me', method: 'get' });
         let me = data.res;
 
@@ -158,7 +168,7 @@ module.exports = class Client extends EventEmitter {
      * Internal function to handle websocket fails.
      * @private
      */
-    wsFail () {
+    wsFail() {
         this.destroy();
     }
 
@@ -183,7 +193,9 @@ module.exports = class Client extends EventEmitter {
         return request(options);
     }
 
-    get awaitConnection () {
+    get awaitConnection() {
         return this.connectedPromise.promise;
     }
 };
+
+module.exports = Client;

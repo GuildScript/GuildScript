@@ -2,7 +2,7 @@
  * @function externalPromise
  * @private
  */
-module.exports = () => {
+const externalPromise = () => {
     let resolve, reject;
     const promise = new Promise((res, rej) => {
         resolve = res;
@@ -14,3 +14,5 @@ module.exports = () => {
         reject
     };
 };
+
+module.exports = externalPromise;

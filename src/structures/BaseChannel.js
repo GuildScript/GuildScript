@@ -1,8 +1,7 @@
 /**
- * @module BaseChannel
- * @private
+ * * @private
  */
-module.exports = class BaseChannel {
+const BaseChannel = class BaseChannel {
     constructor(client, data) {
         this.client = client;
         this.apply(data);
@@ -17,3 +16,6 @@ module.exports = class BaseChannel {
     }
 };
 
+
+
+module.exports = BaseChannel;

@@ -1,9 +1,8 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
 /**
- * @module EmojiText
- */
-module.exports = class EmojiText extends ParagraphComponent {
+ * */
+const EmojiText = class EmojiText extends ParagraphComponent {
     constructor(raw) {
         super();
         this.type = 'emoji';
@@ -53,3 +52,5 @@ module.exports = class EmojiText extends ParagraphComponent {
         };
     }
 };
+
+module.exports = EmojiText;

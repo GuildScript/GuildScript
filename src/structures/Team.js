@@ -2,9 +2,8 @@ const Role = require('./Role');
 const User = require('./User');
 
 /**
- * @module Team
- */
-module.exports = class Team {
+ * */
+const Team = class Team {
     constructor(client, data) {
         this.client = client;
         this.apply(data);
@@ -35,3 +34,6 @@ module.exports = class Team {
     }
 };
 
+
+
+module.exports = Team;

@@ -2,31 +2,16 @@ const uuid = require('uuid').v4;
 const BaseComponent = require('../messageComponents/BaseComponent');
 const MessageBuilder = require('../messageComponents/MessageBuilder');
 const ParagraphComponent = require('../messageComponents/ParagraphComponent');
-const BaseChannel = require('./BaseChannel');
 
 /**
- * */
-const TextBasedChannel = class TextBasedChannel extends BaseChannel {
-    constructor(client, data) {
-        super(client, data);
-        this.apply(data);
+ * * A dummy channel with a few methods for rare situations where I don't get data.
+ */
+const UnknownChannel = class UnknownChannel  {
+    constructor(client, id) {
+        this.client = client;
+        this.id = id;
     }
 
-    apply (data) {
-        const { id, createdAt, createdBy, description, groupId, isPublic, name, teamId, updatedAt } = data;
-        
-        this.id = id;
-        this.createdBy = createdBy;
-        this.createdAt = new Date(createdAt);
-        this.createdAtTimestamp = this.createdAt.getTime();
-        this.description = description;
-        this.group = groupId;
-        this.public = isPublic;
-        this.name = name;
-        this.team = teamId;
-        this.updatedAt = new Date(updatedAt);
-        this.updatedAtTimestamp = this.updatedAt.getTime();
-    }
     async send(data, options = {}) {
         if (data instanceof BaseComponent || data instanceof ParagraphComponent || typeof data === 'string')
             data = new MessageBuilder(data);
@@ -46,4 +31,4 @@ ${JSON.stringify(res.res)}`);
 
 
 
-module.exports = TextBasedChannel;
+module.exports = UnknownChannel;

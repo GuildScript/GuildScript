@@ -1,7 +1,6 @@
 /**
- * @module Role
- */
-module.exports = class Role {
+ * */
+const Role = class Role {
     constructor(client, data) {
         this.client = client;
         this.apply(data);
@@ -16,3 +15,6 @@ module.exports = class Role {
     }
 };
 
+
+
+module.exports = Role;

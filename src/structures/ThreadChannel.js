@@ -1,7 +1,7 @@
 const TextBasedChannel = require('./TextBasedChannel');
 /**
  * */
-const TextChannel = class TextChannel extends TextBasedChannel {
+const ThreadChannel = class ThreadChannel extends TextBasedChannel {
     constructor(client, data) {
         super(client, data);
     }
@@ -9,4 +9,4 @@ const TextChannel = class TextChannel extends TextBasedChannel {
 
 
 
-module.exports = TextChannel;
+module.exports = ThreadChannel;

@@ -7,9 +7,8 @@ const Text = require('./Text');
 const UserMention = require('./UserMention');
 
 /**
- * @module Paragraph
- */
-module.exports = class Paragraph extends BaseComponent {
+ * */
+const Paragraph = class Paragraph extends BaseComponent {
     constructor(data, options = {}) {
         super();
         const {raw}  = options;
@@ -101,3 +100,5 @@ module.exports = class Paragraph extends BaseComponent {
         };
     }
 };
+
+module.exports = Paragraph;

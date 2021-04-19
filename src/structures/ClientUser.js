@@ -1,9 +1,8 @@
 const User = require('./User');
 
 /**
- * @module ClientUser
- */
-module.exports = class ClientUser extends User {
+ * */
+const ClientUser = class ClientUser extends User {
     constructor(client, data) {
         super(client, data);
     }
@@ -19,3 +18,5 @@ module.exports = class ClientUser extends User {
         return true;
     }
 };
+
+module.exports = ClientUser;

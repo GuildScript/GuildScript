@@ -1,9 +1,10 @@
 
 /**
  * Represents a component in a paragraph.
- * @module ParagraphComponent
- * @private
+ * * @private
  */
-module.exports = class ParagraphComponent {
+const ParagraphComponent = class ParagraphComponent {
     constructor() {}
 };
+
+module.exports = ParagraphComponent;

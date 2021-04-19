@@ -3,14 +3,13 @@ const User = require('../structures/User');
 
 /**
  * Manages users.
- * @module UserManager
- */
-module.exports = class UserManager extends BaseManager {
+ * */
+const UserManager = class UserManager extends BaseManager {
     constructor(client) {
         super(client);
     }
     
-    async fetch(id, cache = true, force = false) {
+    async fetch(id, { cache = true, force = false } = {}) {
         if(!force && this.has(id)) {
             return this.get(id);
         }
@@ -21,3 +20,5 @@ module.exports = class UserManager extends BaseManager {
         return user;
     }
 };
+
+module.exports = UserManager;

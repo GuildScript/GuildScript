@@ -1,7 +1,6 @@
 /**
- * @module User
- */
-module.exports = class User {
+ * */
+const User = class User {
     constructor(client, data) {
         this.client = client;
         this.apply(data);
@@ -30,3 +29,6 @@ module.exports = class User {
     }
 };
 
+
+
+module.exports = User;

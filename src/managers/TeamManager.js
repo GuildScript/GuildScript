@@ -3,9 +3,8 @@ const Team = require('../structures/Team');
 
 /**
  * Manages Teams.
- * @module TeamManager
  */
-module.exports = class TeamManager extends BaseManager {
+const TeamManager = class TeamManager extends BaseManager {
     constructor(client) {
         super(client);
     }
@@ -15,14 +14,14 @@ module.exports = class TeamManager extends BaseManager {
      */
     async join(id) {
         if(id == null) throw new Error('You must supply an id!');
-        if(typeof(id) != 'string') throw new Error('Id must be a string!');
+        if(typeof(id) != 'string') throw new Error('ID must be a string!');
 
         let data = await this.client.request({ path: `invites/${id}`, method: 'put' });
         if (!data.ok) throw new Error(`${data.status} error joining team ${id}!`);
         return data.res;
     }
 
-    async fetch(id, cache = true, force = false) {
+    async fetch(id, { cache = true, force = false } = {}) {
         if(!force && this.has(id)) {
             return this.get(id);
         }
@@ -33,3 +32,5 @@ module.exports = class TeamManager extends BaseManager {
         return team;
     }
 };
+
+module.exports = TeamManager;

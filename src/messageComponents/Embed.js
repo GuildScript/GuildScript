@@ -1,9 +1,8 @@
 const BaseComponent = require('./BaseComponent');
 
 /**
- * @module Embed
- */
-module.exports = class Embed extends BaseComponent {
+ * */
+const Embed = class Embed extends BaseComponent {
     constructor(data = {}) {
         super();
         this.type = 'embed';
@@ -153,3 +152,5 @@ module.exports = class Embed extends BaseComponent {
         };
     }
 };
+
+module.exports = Embed;

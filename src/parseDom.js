@@ -9,10 +9,9 @@ const Markdown = require('./messageComponents/Markdown');
 /**
  * Parses the raw messages sent from guilded into a much more manageable form.
  * @param {Object} dom - The raw dom of the message.
- * @module parseDom
  * @private
  */
-module.exports = (dom) => {
+const parseDom = (dom) => {
     dom = dom.document.nodes;
     let message = new MessageBuilder();
     dom.forEach(node => {
@@ -73,3 +72,5 @@ module.exports = (dom) => {
     });
     return message;
 };
+
+module.exports = parseDom;

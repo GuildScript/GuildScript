@@ -1,9 +1,8 @@
 const BaseComponent = require('./BaseComponent');
 
 /**
- * @module CodeBlock
  */
-module.exports = class CodeBlock extends BaseComponent {
+const CodeBlock = class CodeBlock extends BaseComponent {
     constructor(code, lang = 'unformatted') {
         super();
         this.content = code;
@@ -48,3 +47,5 @@ module.exports = class CodeBlock extends BaseComponent {
         };
     }
 };
+
+module.exports = CodeBlock;

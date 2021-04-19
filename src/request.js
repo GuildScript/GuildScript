@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const baseURL = 'https://api.guilded.gg';
+const baseURL = 'https://www.guilded.gg/api';
 
 /**
  * Make a request to the api.
@@ -10,10 +10,9 @@ const baseURL = 'https://api.guilded.gg';
  * @param {object} options.cookies - The cookies to send.
  * @param {boolean} [options.json=true] - If you want to receive a JSON response.
  * @returns {Promise<object>} The response from the server.
- * @module request
  * @private
  */
-module.exports = async (options = {}) => {
+const request = async (options = {}) => {
     let {
         path,
         cookies,
@@ -39,3 +38,5 @@ module.exports = async (options = {}) => {
     };
     return fin;
 };
+
+module.exports = request;

@@ -4,9 +4,8 @@ const Paragraph = require('./Paragraph');
 const ParagraphComponent = require('./ParagraphComponent');
 
 /**
- * @module MessageBuilder
- */
-module.exports = class MessageBuilder {
+ * */
+const MessageBuilder = class MessageBuilder {
     /**
      * Used to build messages.
      * @param  {...BaseComponent|ParagraphComponent|string} components - The components to initialize with.
@@ -64,3 +63,5 @@ module.exports = class MessageBuilder {
         return this.content.map(c => c.toString(options)).filter(v => v).join('\n');
     }
 };
+
+module.exports = MessageBuilder;

@@ -1,6 +1,6 @@
 const BaseComponent = require('./BaseComponent');
 
-module.exports = class GuildedImage extends BaseComponent {
+const GuildedImage = class GuildedImage extends BaseComponent {
     constructor(src) {
         super();
         this.src = src;
@@ -8,10 +8,10 @@ module.exports = class GuildedImage extends BaseComponent {
 
     /**
      * Converts the message into a string-like format.
-     * @returns {null}
+     * @returns {String}
      */
     toString() {
-        return null;
+        return '';
     }
 
     /**
@@ -29,3 +29,5 @@ module.exports = class GuildedImage extends BaseComponent {
         };
     }
 };
+
+module.exports = GuildedImage;
