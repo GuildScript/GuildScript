@@ -217,6 +217,7 @@ const Client = class Client extends EventEmitter {
      * @param {*} options.data - The data to send.
      * @param {string} [options.method='post'] - The method.
      * @param {boolean} [options.json=true] - If you want to receive a JSON response.
+     * @param {boolean} [options.hardError=false] - Whether or not to throw an error if the request fails.
      * @returns {Promise<object>} The response from the server.
      * @private
      * @example
