@@ -1,20 +1,64 @@
 const BaseComponent = require('./BaseComponent');
 
 /**
- * */
+ */
 const Embed = class Embed extends BaseComponent {
+    /**
+     * Represents an embed in a message.
+     * @extends {BaseComponent}
+     */
     constructor(data = {}) {
         super();
         this.type = 'embed';
+        /**
+         * The title of the embed.
+         * @type {?string}
+         */
         this.title = data.title ? data.title : null;
+        /**
+         * The description of the embed.
+         * @type {?string}
+         */
         this.description = data.description ? data.description : null;
+        /**
+         * The url of the embed.
+         * @type {?string}
+         */
         this.url = data.url ? data.url : null;
+        /**
+         * The timestamp of the embed.
+         * @type {?number}
+         */
         this.timestamp = data.timestamp ? data.timestamp : null;
+        /**
+         * The colour of the embed.
+         * @type {?object}
+         */
         this.colour = data.colour ? data.colour : null;
+        /**
+         * The footer of the embed.
+         * @type {?string}
+         */
         this.footer = data.footer ? data.footer : null;
+        /**
+         * The image url of the embed.
+         * @type {?string}
+         */
         this.image = data.image ? data.image : null;
+        /**
+         * The thumbnail url of the embed.
+         * @type {?string}
+         */
         this.thumbnail = data.thumbnail ? data.thumbnail : null;
+        /**
+         * The author data of the embed.
+         * @type {?object}
+         */
         this.author = data.author ? data.author : null;
+        /**
+         * The title of the embed.
+         * @type {Object[]}
+         */
         this.fields = data.fields ? data.fields : [];
     }
 
@@ -123,6 +167,7 @@ const Embed = class Embed extends BaseComponent {
     /**
      * Converts the message into a string-like format.
      * @returns {string}
+     * @private
      */
     toString() {
         return '';

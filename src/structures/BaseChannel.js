@@ -1,5 +1,5 @@
 /**
- * * @private
+ * @private
  */
 const BaseChannel = class BaseChannel {
     constructor(client, data) {
@@ -7,6 +7,11 @@ const BaseChannel = class BaseChannel {
         this.apply(data);
     }
 
+    /**
+     * 
+     * @param {*} data 
+     * @private
+     */
     async apply(data) {
         
     }

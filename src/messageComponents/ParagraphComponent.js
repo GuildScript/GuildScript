@@ -1,7 +1,7 @@
 
 /**
  * Represents a component in a paragraph.
- * * @private
+ * @private
  */
 const ParagraphComponent = class ParagraphComponent {
     constructor() {}

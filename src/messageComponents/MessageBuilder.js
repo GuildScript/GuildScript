@@ -4,7 +4,7 @@ const Paragraph = require('./Paragraph');
 const ParagraphComponent = require('./ParagraphComponent');
 
 /**
- * */
+ */
 const MessageBuilder = class MessageBuilder {
     /**
      * Used to build messages.
@@ -13,7 +13,7 @@ const MessageBuilder = class MessageBuilder {
     constructor(...components) {
         /**
          * The contents of the message.
-         * @type {Array.<(BaseComponent|ParagraphComponent|string)>}
+         * @type {Array.<(BaseComponent|ParagraphComponent)>}
          */
         this.content = [];
         this.add(...components);
@@ -43,6 +43,7 @@ const MessageBuilder = class MessageBuilder {
     /**
      * Convert to a  JSON string like Guilded likes.
      * @returns {object}
+     * @private
      */
     toJSON() {
         return {
@@ -58,6 +59,7 @@ const MessageBuilder = class MessageBuilder {
     /**
      * Converts the message into a string-like format.
      * @returns {string}
+     * @private
      */
     toString(options) {
         return this.content.map(c => c.toString(options)).filter(v => v).join('\n');

@@ -1,8 +1,10 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
-/**
- * */
 const EmojiText = class EmojiText extends ParagraphComponent {
+    /**
+     * Represents the a emoji in a message.
+     * @extends {ParagraphComponent}
+     */
     constructor(raw) {
         super();
         this.type = 'emoji';
@@ -15,6 +17,7 @@ const EmojiText = class EmojiText extends ParagraphComponent {
     /**
      * Converts the message into a string-like format.
      * @returns {string}
+     * @private
      */
     toString() {
         return `:${this.name}:`;
@@ -23,6 +26,7 @@ const EmojiText = class EmojiText extends ParagraphComponent {
     /**
      * Convert to a  JSON string like Guilded likes.
      * @returns {object}
+     * @private
      */
     toJSON() {
         return {

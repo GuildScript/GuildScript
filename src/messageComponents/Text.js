@@ -1,8 +1,15 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
 /**
- * */
+ */
 const Text = class Text extends ParagraphComponent {
+    /**
+     * Represents text in a message.
+     * @extends {ParagraphComponent}
+     * @param {String} text - The url of the link.
+     * @param {Array.<'bold'|'spoiler'|'strikethrough'|'italic'|'underline'|'inline-code-v2'>} [content] - The content of the link.
+     * @see {@link Markdown} for simpler formatting.
+     */
     constructor(text, formatting = []) {
         super();
         if (!Array.isArray(formatting)) formatting = [formatting];
@@ -40,6 +47,7 @@ const Text = class Text extends ParagraphComponent {
     /**
      * Convert to a  JSON string like Guilded likes.
      * @returns {object}
+     * @private
      */
     toJSON() {
         return {

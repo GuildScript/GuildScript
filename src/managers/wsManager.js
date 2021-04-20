@@ -3,7 +3,8 @@ const url = 'wss://api.guilded.gg/socket.io/?jwt=undefined&EIO=3&transport=webso
 const maxTries = 5;
 /**
  * Manages ws events.
- * */
+ * @private
+ */
 const wsManager = class wsManager {
     constructor(cookie, client) {
         this.reconnect = true;

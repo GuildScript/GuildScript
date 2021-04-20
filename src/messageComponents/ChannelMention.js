@@ -1,8 +1,13 @@
 const ParagraphComponent = require('./ParagraphComponent');
 
 /**
+ * Represents the a channel in a message.
  */
 const ChannelMention = class ChannelMention extends ParagraphComponent {
+    /**
+     * Represents the a channel in a message.
+     * @extends {ParagraphComponent}
+     */
     constructor(raw) {
         super();
         this.type = 'channelMention';
@@ -14,6 +19,7 @@ const ChannelMention = class ChannelMention extends ParagraphComponent {
     /**
      * Converts the message into a string-like format.
      * @returns {string}
+     * @private
      */
     toString() {
         return `#${this.name}`;
@@ -22,6 +28,7 @@ const ChannelMention = class ChannelMention extends ParagraphComponent {
     /**
      * Convert to a  JSON string like Guilded likes.
      * @returns {object}
+     * @private
      */
     toJSON() {
         return {

@@ -1,12 +1,18 @@
 const User = require('./User');
 
 /**
- * */
+ * Represents the client user.
+ * @extends {User}
+ */
 const ClientUser = class ClientUser extends User {
     constructor(client, data) {
         super(client, data);
     }
 
+    /**
+     * Set the presence of the current user.
+     * @param {'online'|'idle'|'dnd'|'invisible'} type - Required. The type of status.
+     */
     async setPresence(type) {
         let status;
         if(typeof type === 'number') status = type;

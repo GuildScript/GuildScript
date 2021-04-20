@@ -1,7 +1,8 @@
 // const Channel = require('./');
 
 /**
- * */
+ * Typing info. 
+ */
 const TypingEvent = class TypingEvent {
     constructor(client, data) {
         this.client = client;

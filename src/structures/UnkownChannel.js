@@ -4,14 +4,19 @@ const MessageBuilder = require('../messageComponents/MessageBuilder');
 const ParagraphComponent = require('../messageComponents/ParagraphComponent');
 
 /**
- * * A dummy channel with a few methods for rare situations where I don't get data.
+ * A dummy channel with a few methods for rare situations where I don't get data.
+ * This is to fix an issue and will be removed in the future.
  */
 const UnknownChannel = class UnknownChannel  {
     constructor(client, id) {
         this.client = client;
         this.id = id;
     }
-
+    /**
+     * Send a message to the channel.
+     * @param {BaseComponent|ParagraphComponent|string|MessageBuilder} data - The content to send to the channel.
+     * @param {object} options - The options to send. Currently none.
+     */
     async send(data, options = {}) {
         if (data instanceof BaseComponent || data instanceof ParagraphComponent || typeof data === 'string')
             data = new MessageBuilder(data);

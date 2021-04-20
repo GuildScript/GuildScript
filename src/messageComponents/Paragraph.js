@@ -7,8 +7,15 @@ const Text = require('./Text');
 const UserMention = require('./UserMention');
 
 /**
- * */
+ */
 const Paragraph = class Paragraph extends BaseComponent {
+    /**
+     * Represents a paragraph in a message.
+     * @param {ParagraphComponent|ParagraphComponent[]|string|string[]|object} data - The content of the paragraph. Its an object only if the raw option is included.
+     * @param {object} [options] - The options of the paragraph.
+     * @param {bool} [raw=false] - Whether or not the data is the raw api data.
+     * @extends {BaseComponent}
+     */
     constructor(data, options = {}) {
         super();
         const {raw}  = options;
@@ -66,6 +73,7 @@ const Paragraph = class Paragraph extends BaseComponent {
     /**
      * Converts the message into a string-like format.
      * @returns {string}
+     * @private
      */
     toString() {
         return this.content.map(c => c.toString()).join('');
@@ -90,6 +98,7 @@ const Paragraph = class Paragraph extends BaseComponent {
     /**
      * Convert to a  JSON string like Guilded likes.
      * @returns {object}
+     * @private
      */
     toJSON() {
         return {

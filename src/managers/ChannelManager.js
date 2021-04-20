@@ -4,12 +4,23 @@ const ThreadChannel = require('../structures/ThreadChannel');
 const BaseManager = require('./BaseManager');
 
 /**
- * Manages channels.
+ * Manages the caching and fetching of channels.
+ * @extends {BaseManager}
  */
 const ChannelManager = class ChannelManager extends BaseManager {
+    /**
+     * Fetch a channel from the api.
+     * @param {string} channelID - Required. The id of the channel to fetch.
+     * @param {object} [options] - The options for the fetch.
+     * @param {string} [options.parentID] - The parent id. If the type is "thread" then this is the message id. Otherwise this is the guild id. If none is specified then it will get dm channels.
+     * @param {'thread'} [options.type] - If it is "thread" then it will fetch a thread, otherwise it will fetch a channel.
+     * @param {boolean} [options.cache=true] - If this is set to false the channel will not be cached.
+     * @param {boolean} [options.force=false] - If this is false it will fetch it even if it's cached.
+     * @returns {Promise<TextBasedChannel|ThreadChannel|TextChannel>}
+     */
     async fetch(channelID, { parentID, type, cache = true, force = false } = {}) {
-        if (!force && this.has(channelID))
-            return this.get(channelID);
+        if (!force && this.cache.has(channelID))
+            return this.cache.get(channelID);
         let channels;
         if (type === 'thread') {
             let data = await this.client.request({ path: `channels/${parentID}/threads`, method: 'get' });
@@ -24,11 +35,11 @@ const ChannelManager = class ChannelManager extends BaseManager {
         }
         if (cache) {
             channels.forEach(c => {
-                if (c.threadMessageId) this.set(c.id, new ThreadChannel(this.client, c));
-                else if (c.contentType === 'chat') this.set(c.id, new TextChannel(this.client, c));
-                else this.set(c.id, new TextBasedChannel(this.client, c));
+                if (c.threadMessageId) this.cache.set(c.id, new ThreadChannel(this.client, c));
+                else if (c.contentType === 'chat') this.cache.set(c.id, new TextChannel(this.client, c));
+                else this.cache.set(c.id, new TextBasedChannel(this.client, c));
             });
-            const chn = this.get(channelID);
+            const chn = this.cache.get(channelID);
             if (chn) return chn;
         }
         else {

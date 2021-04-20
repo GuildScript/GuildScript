@@ -22,6 +22,7 @@ const UserMention = class UserMention extends ParagraphComponent {
     /**
      * Convert to a  JSON string like Guilded likes.
      * @returns {object}
+     * @private
      */
     toJSON() {
         return {

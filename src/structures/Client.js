@@ -13,7 +13,7 @@ const cookies = Symbol();
 
 /**
  * The main class to interact with the api.
- * * @example
+ * @example
  * const guilded = require('guildscript');
  * const client = new guilded.Client();
  * 
@@ -26,7 +26,16 @@ const cookies = Symbol();
 const Client = class Client extends EventEmitter {
     /**
      * Make a new client for interacting with the api.
-     * @param {Object} [options] - The client options. RN we don't have any.
+     * @param {Object} [options] - The client options. None right now.
+     * @example
+     * const guilded = require('guildscript');
+     * const client = new guilded.Client();
+     *
+     * client.login('email', 'password');
+     *
+     * client.on('ready' () => {
+     *     console.log(`Logged in as ${client.user.name}.`);
+     * });
      */
     constructor(options) {
         super();
@@ -109,9 +118,9 @@ const Client = class Client extends EventEmitter {
 
             if (type === 'chatMessageDeleted') {
                 let { channelId, message } = data;
-                let channel = this.channels.get(channelId);
+                let channel = this.channels.cache.get(channelId);
                 if (!channel) return;
-                let msg = this.messages.get(message.id);
+                let msg = this.messages.cache.get(message.id);
                 if (!msg) return;
                 this.emit('messageDelete', message);
             }
@@ -132,7 +141,7 @@ const Client = class Client extends EventEmitter {
 
             if (type === 'TemporalChannelCreated') {
                 const channel = new ThreadChannel(this, data);
-                this.channels.set(data.id, channel);
+                this.channels.cache.set(data.id, channel);
                 this.emit('theadCreated', channel);
             }
         } catch (e) {
@@ -152,10 +161,10 @@ const Client = class Client extends EventEmitter {
         let me = data.res;
 
         this.user = new ClientUser(this, me.user);
-        this.users.set(this.id, this.user);
+        this.users.cache.set(this.id, this.user);
 
         me.teams.forEach(async team => {
-            this.teams.set(team.id, new Team(this, team));
+            this.teams.cache.set(team.id, new Team(this, team));
         });
 
         // after thats all done fire ready

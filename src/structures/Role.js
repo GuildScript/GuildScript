@@ -1,5 +1,5 @@
 /**
- * */
+ */
 const Role = class Role {
     constructor(client, data) {
         this.client = client;

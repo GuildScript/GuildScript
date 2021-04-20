@@ -3,6 +3,12 @@ const BaseComponent = require('./BaseComponent');
 /**
  */
 const CodeBlock = class CodeBlock extends BaseComponent {
+    /**
+     * Represents a codeblock in a message.
+     * @param {string} code - The code in the codeblock.
+     * @param {string} lang - The language of the codeblock.
+     * @extends {BaseComponent}
+     */
     constructor(code, lang = 'unformatted') {
         super();
         this.content = code;
@@ -13,6 +19,7 @@ const CodeBlock = class CodeBlock extends BaseComponent {
     /**
      * Converts the message into a string-like format.
      * @returns {string}
+     * @private
      */
     toString() {
         return `${'```'}${this.language}\n${this.content}\n${'```'}`;
@@ -21,6 +28,7 @@ const CodeBlock = class CodeBlock extends BaseComponent {
     /**
      * Convert to a  JSON string like Guilded likes.
      * @returns {object}
+     * @private
      */
     toJSON() {
         return {

@@ -1,13 +1,17 @@
 const BaseComponent = require('./BaseComponent');
 
-const GuildedVideo = class GuildedVideo extends BaseComponent {
+const GuildedImage = class GuildedImage extends BaseComponent {
     /**
-     * Represents a video in a message.
-     * @param {string} src - The source of the video.
+     * Represents an image in a message.
+     * @param {string} src - The source of the image.
      * @extends {BaseComponent}
      */
     constructor(src) {
         super();
+        /**
+         * The source of the image.
+         * @type {string}
+         */
         this.src = src;
     }
 
@@ -28,7 +32,7 @@ const GuildedVideo = class GuildedVideo extends BaseComponent {
     toJSON() {
         return {
             object: 'block',
-            type: 'video',
+            type: 'image',
             data: {
                 src: this.src
             },
@@ -37,4 +41,4 @@ const GuildedVideo = class GuildedVideo extends BaseComponent {
     }
 };
 
-module.exports = GuildedVideo;
+module.exports = GuildedImage;
