@@ -1,18 +1,18 @@
 const BaseComponent = require('./BaseComponent');
 
-const GuildedImage = class GuildedImage extends BaseComponent {
+const RawComponent = class RawComponent extends BaseComponent {
     /**
-     * Represents an image in a message.
-     * @param {string} src - The source of the image.
+     * Represents an unknown component in a message.
+     * @param {*} content - The content.
      * @extends {BaseComponent}
      */
-    constructor(src) {
+    constructor(content) {
         super();
         /**
-         * The source of the image.
+         * The content of the component.
          * @type {string}
          */
-        this.src = src;
+        this.content = content;
     }
 
     /**
@@ -30,15 +30,8 @@ const GuildedImage = class GuildedImage extends BaseComponent {
      * @private
      */
     toJSON() {
-        return {
-            object: 'block',
-            type: 'image',
-            data: {
-                src: this.src
-            },
-            nodes: [ { object: 'text', leaves: [ { object: 'leaf', text: '', marks: [] } ] } ]
-        };
+        return this.content;
     }
 };
 
-module.exports = GuildedImage;
+module.exports = RawComponent;
