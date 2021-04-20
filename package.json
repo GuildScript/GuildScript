@@ -1,6 +1,6 @@
 {
   "name": "guildscript",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A discord.js like client for guilded.",
   "main": "./src/index",
   "repository": "https://github.com/WilsontheWolf/GuildScript",
@@ -16,6 +16,6 @@
     "discord.js-docgen": "discordjs/docgen"
   },
   "scripts": {
-      "docs": "docgen --source src --custom docs/index.yml --output docs/docs.json"
+    "docs": "docgen --source src --custom docs/index.yml --output docs/docs.json"
   }
 }
