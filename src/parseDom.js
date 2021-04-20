@@ -71,7 +71,7 @@ const parseDom = (dom) => {
             //     break;
             // }
             default: {
-                message.add(RawComponent(node));
+                message.add(new RawComponent(node));
                 break;
             }
         }

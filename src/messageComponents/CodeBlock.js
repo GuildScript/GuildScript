@@ -11,7 +11,7 @@ const CodeBlock = class CodeBlock extends BaseComponent {
      */
     constructor(code, lang = 'unformatted') {
         super();
-        this.content = code;
+        this.content = code.toString();
         this.language = lang;
         this.type = 'codeBlock';
     }
