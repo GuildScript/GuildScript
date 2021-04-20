@@ -14,5 +14,8 @@
   },
   "devDependencies": {
     "discord.js-docgen": "discordjs/docgen"
+  },
+  "scripts": {
+      "docs": "docgen --source src --custom docs/index.yml --output docs/docs.json"
   }
 }
