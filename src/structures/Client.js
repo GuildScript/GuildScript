@@ -113,6 +113,11 @@ const Client = class Client extends EventEmitter {
             if (type === 'ChatMessageCreated') {
                 let message = new Message(this, data);
                 await message.ready;
+                /**
+                 * Fires when a new message is created
+                 * @event Client#message
+                 * @param {Message} message - The message that was created
+                 */
                 this.emit('message', message);
             }
 
@@ -122,17 +127,32 @@ const Client = class Client extends EventEmitter {
                 if (!channel) return;
                 let msg = this.messages.cache.get(message.id);
                 if (!msg) return;
+                /**
+                 * Fires when an existing message is deleted
+                 * @event Client#messageDelete
+                 * @param {Message} message - The message that was deleted
+                 */
                 this.emit('messageDelete', message);
             }
 
             if (type === 'ChatChannelTyping') {
                 let key = `${data.channelId}-${data.userId}`;
                 if (!this.typers.has(key)) {
+                    /**
+                     * Fires when someone starts typing
+                     * @event Client#typingStart
+                     * @param {*} data - The data from the api
+                     */
                     this.emit('typingStart', data);
                     this.typers.add(key);
                 }
                 clearTimeout(this.typerClocks[key]);
                 this.typerClocks[key] = setTimeout(() => {
+                    /**
+                     * Fires when someone stops typing
+                     * @event Client#typingEnd
+                     * @param {*} data - The data from the api
+                     */
                     this.emit('typingEnd', data);
                     this.typers.delete(key);
                     delete this.typerClocks[key];
@@ -142,6 +162,11 @@ const Client = class Client extends EventEmitter {
             if (type === 'TemporalChannelCreated') {
                 const channel = new ThreadChannel(this, data);
                 this.channels.cache.set(data.id, channel);
+                /**
+                 * Fires when an thread is created
+                 * @event Client#theadCreated
+                 * @param {Channel} channel - The thread that was created
+                 */
                 this.emit('theadCreated', channel);
             }
         } catch (e) {
@@ -170,6 +195,10 @@ const Client = class Client extends EventEmitter {
         // after thats all done fire ready
         this.ready = true;
         this.connectedPromise.resolve();
+        /**
+         * Fires when the client is ready
+         * @event Client#ready
+         */
         this.emit('ready');
     }
 
