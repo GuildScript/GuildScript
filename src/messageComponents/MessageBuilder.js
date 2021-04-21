@@ -61,7 +61,7 @@ const MessageBuilder = class MessageBuilder {
      * @returns {string}
      * @private
      */
-    toString(options) {
+    toString(options = {}) {
         return this.content.map(c => c.toString(options)).filter(v => v).join('\n');
     }
 };

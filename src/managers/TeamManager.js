@@ -11,13 +11,12 @@ const TeamManager = class TeamManager extends BaseManager {
     }
     /**
      * Joins a team
-     * @param  {String} id - invite id
+     * @param  {String} id - The team id
      */
     async join(id) {
         if(id == null) throw new Error('You must supply an id!');
         if(typeof(id) != 'string') throw new Error('ID must be a string!');
-
-        let data = await this.client.request({ path: `invites/${id}`, method: 'put' });
+        let data = await this.client.request({ path: `teams/${id}/members/${this.client.user.id}/join`, method: 'put' });
         if (!data.ok) throw new Error(`${data.status} error joining team ${id}!`);
         return data.res;
     }

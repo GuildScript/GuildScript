@@ -21,7 +21,7 @@ const Link = class Link extends ParagraphComponent {
      * @returns {string}
      * @private
      */
-    toString(options) {
+    toString(options = {}) {
         if (options.text)
             return `[${this.content}](${this.url})`;
         return this.content;

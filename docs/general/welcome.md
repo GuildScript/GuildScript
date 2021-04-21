@@ -30,3 +30,5 @@ client.on('message' () => {
 
 client.login('email', 'username');
 ```
+
+If you wish you can view an example bot [here](https://github.com/WilsontheWolf/WilsonBot).
