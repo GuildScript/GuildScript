@@ -19,16 +19,16 @@ npm install guildscript
 const Guilded = require('guildscript');
 const client = new Guilded.Client();
 
-client.on('ready' () => {
+client.on('ready', () => {
     console.log(`Logged in as ${client.user.name}.`);
 });
 
-client.on('message' () => {
+client.on('message', (message) => {
     let content = message.content.toString();
     if(content === '!ping') message.channel.send('pong!');
 });
 
-client.login('email', 'username');
+client.login('email', 'password');
 ```
 
 If you wish you can view an example bot [here](https://github.com/WilsontheWolf/WilsonBot).
