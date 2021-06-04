@@ -31,7 +31,11 @@ const ChannelManager = class ChannelManager extends BaseManager {
             if (parentID) data = await this.client.request({ path: `teams/${parentID}/channels`, method: 'get' });
             else data = await this.client.request({ path: `users/${this.client.user.id}/channels`, method: 'get' });
             if (!data.ok) throw new Error(`${data.status} error fetching team data for ${channelID}!`);
-            channels = [...data.res.channels, ...(data.res.temporalChannels || [])];
+            if (typeof data.res.temporalChannels == 'undefined') {
+                channels = [...data.res.channels];
+            } else {
+                channels = [...data.res.channels, ...data.res.temporalChannels];
+            }
         }
         if (cache) {
             channels.forEach(c => {
